@@ -1,56 +1,19 @@
 <?php
 
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', 'App\Http\Controllers\HomeController@index')->name("home.index");
-Route::get('/about', function () {
+Route::get('/', [HomeController::class, 'index'])->name('home.index');
 
-$data1 = "About us - Online Store";
+Route::get('/about', [HomeController::class, 'about'])->name('home.about');
 
-$data2 = "About us";
+Route::get('/contact', [HomeController::class, 'contact'])->name('home.contact');
 
-$description = "This is an about page ...";
+Route::get('/products', [ProductController::class, 'index'])->name('product.index');
 
-$author = "Developed by: Your Name";
+Route::get('/products/create', [ProductController::class, 'create'])->name('product.create');
 
-return view('home.about')->with("title", $data1)
+Route::get('/products/save', [ProductController::class, 'save'])->name('product.save');
 
-->with("subtitle", $data2)
-
-->with("description", $description)
-
-->with("author", $author);
-
-})->name("home.about");
-
-Route::get('/contact', function () {
-
-$data1 = "Contact us - Online Store";
-
-$data2 = "Contact us";
-
-$email = "darieth@prueba.com";
-
-$address = "address: Calle 1 #2-3";
-
-$phone_number="123456789";
-
-return view('home.contact')->with("title", $data1)
-
-->with("subtitle", $data2)
-
-->with("email", $email)
-
-->with("address", $address)
-
-->with("phone_number", $phone_number);
-
-})->name("home.contact");
-
-Route::get('/products', 'App\Http\Controllers\ProductController@index')->name("product.index");
-
-Route::get('/products/create', 'App\Http\Controllers\ProductController@create')->name("product.create");
-
-Route::post('/products/save', 'App\Http\Controllers\ProductController@save')->name("product.save");
-Route::get('/products/{id}', 'App\Http\Controllers\ProductController@show')->name("product.show");
-
+Route::get('/products/{id}', [ProductController::class, 'show'])->name('product.show');
