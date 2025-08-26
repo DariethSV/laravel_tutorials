@@ -14,6 +14,7 @@
     <body>
     <!-- header -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-secondary py-4">
+            
             <div class="container">
                 <a class="navbar-brand" href="{{ route('home.index') }}">Online Store</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,6 +27,17 @@
                         <a class="nav-link active" href="{{ route('home.about') }}">About</a>
                         <a class="nav-link active" href="{{ route('home.contact') }}">Contact</a>
                         <a class="nav-link active" href="{{ route('product.index') }}">Products</a>
+                        <div class="vr bg-white mx-2 d-none d-lg-block"></div>
+                            @guest
+                            <a class="nav-link active" href="{{ route('login') }}">Login</a>
+                            <a class="nav-link active" href="{{ route('register') }}">Register</a>
+                            @else
+                            <form id="logout" action="{{ route('logout') }}" method="POST">
+                            <a role="button" class="nav-link active"
+                            onclick="document.getElementById('logout').submit();">Logout</a>
+                            @csrf
+                            </form>
+                            @endguest 
                     </div>
                 </div>
             </div>
